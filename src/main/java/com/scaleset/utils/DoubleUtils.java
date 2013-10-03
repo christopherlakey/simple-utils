@@ -1,6 +1,5 @@
 package com.scaleset.utils;
 
-
 import java.util.Date;
 
 public class DoubleUtils {
@@ -10,15 +9,19 @@ public class DoubleUtils {
      * the string is null or if there is an issue parsing the String, then the
      * defalt value is returned instead.
      * 
-     * @param s
+     * @param str
+     *            The string to coerce to a double
      * @param fallback
-     * @return
+     *            The value to return if the input in null or cannot be coerced
+     *            to a Double
+     * @return The input coerced to a Double or the fallback value if the input
+     *         cannot be coerced
      */
-    public static Double valueOf(String s, Number fallback) {
+    public static Double valueOf(String str, Number fallback) {
         Double result = fallback == null ? null : fallback.doubleValue();
-        if (s != null) {
+        if (str != null) {
             try {
-                result = Double.valueOf(s);
+                result = Double.valueOf(str);
             } catch (NumberFormatException nfe) {
                 // leave result = fallback;
             }
@@ -32,9 +35,13 @@ public class DoubleUtils {
      * the defalt value is returned instead. Supported types include: String,
      * Double, Long
      * 
-     * @param s
+     * @param obj
+     *            The object to coerce to a Double
      * @param fallback
-     * @return
+     *            The value to return if the input in null or cannot be coerced
+     *            to a Double
+     * @return The input coerced to a Double or the fallback value if the input
+     *         cannot be coerced
      */
     public static Double valueOf(Object obj, Number fallback) {
         Double result = fallback == null ? null : fallback.doubleValue();

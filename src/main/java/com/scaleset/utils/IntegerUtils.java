@@ -1,6 +1,5 @@
 package com.scaleset.utils;
 
-
 import java.util.Date;
 
 public class IntegerUtils {
@@ -10,15 +9,19 @@ public class IntegerUtils {
      * the string is null or if there is an issue parsing the String, then the
      * defalt value is returned instead.
      * 
-     * @param s
+     * @param str
+     *            The string to coerce to an Integer
      * @param fallback
-     * @return
+     *            The value to return if the input in null or cannot be coerced
+     *            to an Integer
+     * @return The input coerced to an Integer or the fallback value if the input
+     *         cannot be coerced
      */
-    public static Integer valueOf(String s, Number fallback) {
+    public static Integer valueOf(String str, Number fallback) {
         Integer result = fallback == null ? null : fallback.intValue();
-        if (s != null) {
+        if (str != null) {
             try {
-                result = Integer.valueOf(s);
+                result = Integer.valueOf(str);
             } catch (NumberFormatException nfe) {
                 // leave result = fallback;
             }
@@ -26,10 +29,32 @@ public class IntegerUtils {
         return result;
     }
 
-    public static Integer valueOf(String s) {
-        return valueOf(s, (Number) null);
+    /**
+     * Returns an Integer object holding the value of the specified String. If
+     * the object is null or if there is an issue converting the object, then
+     * the null is returned instead. Supported types include: String, Integer,
+     * Long
+     * 
+     * @param str
+     *            The String to coerce to an Integer
+     * @return The input coerced to a Integer or null if the input cannot be
+     *         coerced
+     */
+    public static Integer valueOf(String str) {
+        return valueOf(str, (Number) null);
     }
 
+    /**
+     * Returns an Integer object holding the value of the specified Object. If
+     * the object is null or if there is an issue converting the object, then
+     * the null is returned instead. Supported types include: String, Integer,
+     * Long
+     * 
+     * @param obj
+     *            The object to coerce to an Integer
+     * @return The input coerced to a Integer or null if the input cannot be
+     *         coerced
+     */
     public static Integer valueOf(Object obj) {
         return valueOf(obj, (Number) null);
     }
@@ -40,9 +65,13 @@ public class IntegerUtils {
      * the defalt value is returned instead. Supported types include: String,
      * Integer, Long
      * 
-     * @param s
+     * @param obj
+     *            The object to coerce to an Integer
      * @param fallback
-     * @return
+     *            The value to return if the input in null or cannot be coerced
+     *            to an Integer
+     * @return The input coerced to a Integer or the fallback value if the input
+     *         cannot be coerced
      */
     public static Integer valueOf(Object obj, Number fallback) {
         Integer result = fallback == null ? null : fallback.intValue();
