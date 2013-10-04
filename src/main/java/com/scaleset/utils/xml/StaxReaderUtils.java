@@ -56,11 +56,6 @@ public final class StaxReaderUtils {
     private StaxReaderUtils() {
     }
 
-    /**
-     * Return a cached, namespace-aware, factory.
-     * 
-     * @return
-     */
     private static XMLInputFactory getXMLInputFactory() {
         XMLInputFactory f = NS_AWARE_INPUT_FACTORY_POOL.poll();
         if (f == null) {
@@ -78,7 +73,8 @@ public final class StaxReaderUtils {
      * Return a new factory so that the caller can set sticky parameters.
      * 
      * @param nsAware
-     * @return
+     *            Flag to indiciate if the new factory should be namespace aware
+     * @return a new XMLInputFactory
      */
     public static XMLInputFactory createXMLInputFactory(boolean nsAware) {
         XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -159,6 +155,13 @@ public final class StaxReaderUtils {
      * Returns true if currently at the start of an element, otherwise move
      * forwards to the next element start and return true, otherwise false is
      * returned if the end of the stream is reached.
+     * 
+     * @param in
+     *            The XMLStreamReader to move forwards
+     * @return true if at the start of an element or if the stream is advanced,
+     *         false otherwise.
+     * @throws XMLStreamException
+     *             if an error occurs advancing the stream
      */
     public static boolean skipToStartOfElement(XMLStreamReader in) throws XMLStreamException {
         for (int code = in.getEventType(); code != XMLStreamReader.END_DOCUMENT; code = in.next()) {
@@ -203,10 +206,14 @@ public final class StaxReaderUtils {
     }
 
     /**
+     * Create a new XMLStreamReader from the given input stream
+     * 
      * @param in
+     *            The input stream for the reader
      * @param encoding
-     * @param ctx
-     * @return
+     *            The string encoding. <code>UTF-8</code> will be used if value
+     *            is null.
+     * @return The new created stream reader
      */
     public static XMLStreamReader createXMLStreamReader(InputStream in, String encoding) {
         if (encoding == null) {
@@ -224,8 +231,12 @@ public final class StaxReaderUtils {
     }
 
     /**
+     * Create a new XMLStreamReader from the given input stream
+     * 
      * @param in
-     * @return
+     *            The input stream for the reader. Encoding is assumed to be
+     *            <code>UTF-8</code>
+     * @return The new created stream reader
      */
     public static XMLStreamReader createXMLStreamReader(InputStream in) {
         XMLInputFactory factory = getXMLInputFactory();
@@ -249,10 +260,6 @@ public final class StaxReaderUtils {
         }
     }
 
-    /**
-     * @param reader
-     * @return
-     */
     public static XMLStreamReader createXMLStreamReader(Reader reader) {
         XMLInputFactory factory = getXMLInputFactory();
         try {
@@ -264,18 +271,23 @@ public final class StaxReaderUtils {
         }
     }
 
-    /**
-     * @param reader
-     * @return
-     * @throws FileNotFoundException
-     */
     public static XMLStreamReader createXMLStreamReader(File file) throws FileNotFoundException {
         return createXMLStreamReader(new FileInputStream(file));
     }
 
     /**
      * Reads a QName from the element text. Reader must be positioned at the
-     * start tag.
+     * start tag. The text is assumed to be of the named prefix:localName. The
+     * prefix will be resolved to a namespace using
+     * reader.getNameSpaceURI(prefix).
+     * 
+     * @param reader
+     *            The reader to use
+     * @return null if no qname expression is present
+     * 
+     * @throws XMLStreamException
+     *             if a qname is present but no namespace is bound to the prefix
+     * 
      */
     public static QName qname(XMLStreamReader reader) throws XMLStreamException {
         String value = reader.getElementText();

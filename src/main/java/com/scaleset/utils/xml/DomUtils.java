@@ -111,12 +111,6 @@ public class DomUtils {
         return results;
     }
 
-    /**
-     * 
-     * @param parent
-     * @param name
-     * @return
-     */
     public static Element child(Node parent, String name) {
         if (parent == null || name == null) {
             return null;
@@ -136,12 +130,6 @@ public class DomUtils {
         return null;
     }
 
-    /**
-     * 
-     * @param parent
-     * @param name
-     * @return
-     */
     public static Element elementByTagName(Node parent, String name) {
         Element result = null;
         if (parent instanceof Element) {
@@ -161,13 +149,14 @@ public class DomUtils {
     /**
      * Return the name for the given node.
      * 
-     * @param element
+     * @param node
+     *            The input node
      * @return The name of the node or null if the node doesn't have name.
      */
-    public static String name(Node element) {
-        String name = element.getLocalName();
+    public static String name(Node node) {
+        String name = node.getLocalName();
         if (name == null) {
-            name = element.getNodeName();
+            name = node.getNodeName();
         }
         return name;
     }
@@ -176,9 +165,12 @@ public class DomUtils {
      * Return the text content of the named attribute with the element.
      * 
      * @param element
+     *            The input element
      * @param name
      *            The name of the attribute whose text value is being returned.
      * @param fallback
+     *            The value to return if there is no text content for the
+     *            attribute
      * @return The attribute text or the fallback value if element is null or no
      *         attribute is present.
      */

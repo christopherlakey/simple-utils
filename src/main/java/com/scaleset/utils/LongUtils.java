@@ -1,24 +1,27 @@
 package com.scaleset.utils;
 
-
 import java.util.Date;
 
 public class LongUtils {
 
     /**
-     * Returns an Long object holding the value of the specified String. If the
+     * Returns a Long object holding the value of the specified String. If the
      * string is null or if there is an issue parsing the String, then the
-     * defalt value is returned instead.
+     * default value is returned instead.
      * 
-     * @param s
+     * @param str
+     *            The string to coerce to a Long
      * @param fallback
-     * @return
+     *            The value to return if the input in null or cannot be coerced
+     *            to a Long
+     * @return The input coerced to a Long or the fallback value if the input
+     *         cannot be coerced
      */
-    public static Long valueOf(String s, Number fallback) {
+    public static Long valueOf(String str, Number fallback) {
         Long result = fallback == null ? null : fallback.longValue();
-        if (s != null) {
+        if (str != null) {
             try {
-                result = Long.valueOf(s);
+                result = Long.valueOf(str);
             } catch (NumberFormatException nfe) {
                 // leave result = fallback;
             }
@@ -33,12 +36,16 @@ public class LongUtils {
     /**
      * Returns an Long object holding the value of the specified Object. If the
      * object is null or if there is an issue converting the objectO, then the
-     * defalt value is returned instead. Supported types include: String, Long,
+     * default value is returned instead. Supported types include: String, Long,
      * Long
      * 
-     * @param s
+     * @param obj
+     *            The Object to coerce to a Long
      * @param fallback
-     * @return
+     *            The value to return if the input in null or cannot be coerced
+     *            to a Long
+     * @return The input coerced to a Long or the fallback value if the input
+     *         cannot be coerced
      */
     public static Long valueOf(Object obj, Number fallback) {
         Long result = fallback == null ? null : fallback.longValue();
